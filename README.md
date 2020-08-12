@@ -1,2 +1,2 @@
 # dotnet
-Notes and codes written while learning C# (.NET Core)
+Notes and snippets written while learning C# (.NET Core)
