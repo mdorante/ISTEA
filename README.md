@@ -1,2 +1,2 @@
-# dotnet
-Notes and snippets written while learning C# (.NET Core)
+# ISTEA
+Everything related to ISTEA (including codes and stuff)
