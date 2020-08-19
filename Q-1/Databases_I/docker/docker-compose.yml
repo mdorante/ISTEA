@@ -3,11 +3,11 @@ version: "3.8"
 services:
   ms_sql:
     container_name: "ms_sql"
-    image: mcr.microsoft.com/mssql/server:2019-CU6-ubuntu-16.04
+    image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
       - "1433:1433"
     volumes:
-      - "ms_sql_volume:/var/opt/mssql"
+      - "./data/ms_sql_volume:/var/opt/mssql"
     env_file:
       - .env
     network_mode: "bridge"
