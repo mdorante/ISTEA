@@ -6,7 +6,7 @@ namespace Ejercicio_3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Este programa muestra la cantidad de dias que contiene el mes especificado (del 2020).\n");
+            Console.WriteLine("Este programa muestra la cantidad de dias que contiene el mes especificado (del 2020)." + '\n');
             Console.WriteLine("Ingrese el numero de un mes (del 1 al 12):");
 
             int mes = int.Parse(Console.ReadLine());

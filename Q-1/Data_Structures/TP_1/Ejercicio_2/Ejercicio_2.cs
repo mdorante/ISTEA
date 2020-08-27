@@ -17,7 +17,7 @@ namespace TP_1
             
             if (z != 0 && x % z == 0)
             {
-                Console.WriteLine("x es divisible por z");
+                Console.WriteLine("x es divisible por z" + '\n');
             }
 
             //Esperamos que se presione enter para finalizar.

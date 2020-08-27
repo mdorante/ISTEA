@@ -6,7 +6,7 @@ namespace Ejercicio_4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Calculadora de ºC a ºF:");
+            Console.WriteLine("Calculadora de ºC a ºF:" + '\n');
 
             Console.WriteLine("Ingrese la temperatura en ºC:");
             float celsius = float.Parse(Console.ReadLine());

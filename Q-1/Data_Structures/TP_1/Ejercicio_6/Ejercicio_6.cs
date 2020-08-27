@@ -7,8 +7,8 @@ namespace Ejercicio_6
         static void Main(string[] args)
         {
             // Bienvenida al juego + evento de batalla
-            Console.WriteLine("\\_|_/ Dungeons and Dragons \\_|_/\n");
-            Console.WriteLine("Te has conseguido a un enemigo!\n");
+            Console.WriteLine("\\_|_/ Dungeons and Dragons \\_|_/" + '\n');
+            Console.WriteLine("Te has conseguido a un enemigo!" + '\n');
 
             Random rnd = new Random();
 
@@ -81,9 +81,9 @@ namespace Ejercicio_6
 
             // Notificamos al jugador los stats del turno
             Console.WriteLine($"Tus puntos de ataque: {attack}");
-            Console.WriteLine($"Puntos de defensa del enemigo: {defensaEnemy}\n");
+            Console.WriteLine($"Puntos de defensa del enemigo: {defensaEnemy}" + '\n');
 
-            Console.WriteLine("[Atacaste al enemigo]\n");
+            Console.WriteLine("[Atacaste al enemigo]" + '\n');
             Console.WriteLine($"Vida del enemigo: {vidaEnemy}");
 
             if (enemyAlive == false)
