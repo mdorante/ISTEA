@@ -13,15 +13,14 @@ namespace Ejercicio_6
             Random rnd = new Random();
 
             // Atributos del personaje
-            float fuerza = rnd.Next(1, 100);
-            float agilidad = rnd.Next(1, 100);
-            float aguante = rnd.Next(1, 100);
-            float fuerzaDelArma = rnd.Next(1, 100);
-            float pesoDelArma = rnd.Next(1, 100);
+            float fuerza = 87f;
+            float agilidad = 62f;
+            float aguante = 74f;
+            float fuerzaDelArma = 79f;
+            float pesoDelArma = 70f;
             float attack;
 
-
-            // Atributos del enemigo
+            // Generamos aleatoriamente los atributos del enemigo (todos los enemigos van a tener atributos diferentes)
             float aguanteEnemy = rnd.Next(1, 100);
             float agilidadEnemy = rnd.Next(1, 100);
             float escudoEnemy = rnd.Next(1, 100);
@@ -31,10 +30,6 @@ namespace Ejercicio_6
             // calculamos el attack
             attack = (fuerza + agilidad) - (pesoDelArma % aguante);
 
-            if (attack <= 0)
-            {
-                attack = 0;
-            }
             if (pesoDelArma % fuerzaDelArma == 0)
             {
                 attack *= 1.03f;
