@@ -2,6 +2,8 @@
 
 Everything related to ISTEA classes (mostly code snippets and notes).
 
+https://www.istea.edu.ar/tecnicatura-superior-en-analisis-de-sistemas
+
 What I'm learning right now:
 
 - C# Basics
