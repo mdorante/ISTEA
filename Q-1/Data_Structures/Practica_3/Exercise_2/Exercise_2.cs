@@ -19,6 +19,8 @@ namespace Exercise_2
 
 
             // 0 termina la ejecucion
+
+            // ----- INICIO DEL LOOP -----
             while (numero != 0)
             {
                 // check if the number is odd
@@ -35,7 +37,13 @@ namespace Exercise_2
 
                 // obtenemos el proximo numero
                 numero = int.Parse(Console.ReadLine());
-            }
+            } // ----- FIN DEL LOOP -----
+
+            /*
+            Para salir del loop, se debe ingresar el número 0 por consola,
+            ya que es la condición que rompe el loop.
+            */
+
             // mostramos el resultado.
             Console.WriteLine("Numeros Pares: " + pares);
             Console.WriteLine("Numeros impares: " + impares);
