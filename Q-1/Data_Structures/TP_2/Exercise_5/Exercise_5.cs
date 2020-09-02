@@ -17,15 +17,16 @@ namespace Exercise_5
 
             int divisor = 0;
 
-            for (int i = 1; i < numero / 2; i++)
+            for (int i = 1; i < numero; i++)
             {
                 if (numero % i == 0)
                 {
                     divisor = i;
                 }
             }
-
+            
             Console.WriteLine($"Divisor: {divisor}");
+
             int[,] resultado = new int[numero / divisor, divisor];
             for (int i = 0; i < resultado.GetLength(0); i++)
             {
