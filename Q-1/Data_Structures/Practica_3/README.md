@@ -100,16 +100,23 @@ while(i 6)
 - Se deberá hallar el máximo divisor para el número que no sea él mismo.
 - Luego se deberán imprimir en pantalla de mayor a menor todos los números entre el elegido y 1 inclusive teniendo en cuenta que la cantidad máxima de números a mostrar por línea tiene que ser el máximo divisor.
 - Cada número deberá estar encerrado entre corchetes, por ej: [1]
+
   Ejemplos de ejecución:
+
   Nro. elegido: 9
+
   Output esperado:
+
   ```console
   [9][8][7]
   [6][5][4]
   [3][2][1]
   ```
+
   Nro. elegido: 20
+
   Output esperado:
+
   ```console
   [20][19][18][17][16][15][14][13][12][11]
   [10][9][8][7][6][5][4][3][2][1]
