@@ -1,6 +1,6 @@
 # ISTEA
 
-Everything related to ISTEA classes (mostly code snippets and notes).
+Everything related to ISTEA classes (notes, snippets, exercises and projects).
 
 https://www.istea.edu.ar/tecnicatura-superior-en-analisis-de-sistemas
 
