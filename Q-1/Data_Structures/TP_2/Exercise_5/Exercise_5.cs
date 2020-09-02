@@ -6,8 +6,14 @@ namespace Exercise_5
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Por favor ingrese un numero mayor o igual a 9 y menor o igual a 40:");
-            int numero = int.Parse(Console.ReadLine());
+            int numero = 0;
+            bool isNum = false;
+
+            while (!isNum)
+            {
+                Console.WriteLine("Por favor ingrese un numero mayor o igual a 9 y menor o igual a 40:");
+                isNum = int.TryParse(Console.ReadLine(), out numero);
+            }
 
             if (numero < 9 || numero > 40)
             {
@@ -24,17 +30,31 @@ namespace Exercise_5
                     divisor = i;
                 }
             }
-            
+
+            int[] cuentaNumeros = new int[numero];
+
+            for (int i = 0; i < cuentaNumeros.Length; i++)
+            {
+                cuentaNumeros[i] = i + 1;
+            }
+
             Console.WriteLine($"Divisor: {divisor}");
 
-            int[,] resultado = new int[numero / divisor, divisor];
-            for (int i = 0; i < resultado.GetLength(0); i++)
+            Array.Reverse(cuentaNumeros);
+
+            for (int i = 0; i < cuentaNumeros.Length; i++)
             {
-                for (int j = 0; j < resultado.GetLength(1); j++)
+                if (i % divisor == 0)
                 {
-                    Console.Write($"[{resultado[i, j]}] ");
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
+
+                Console.Write($"[{cuentaNumeros[i]}] ");
+
+                if (i == cuentaNumeros.Length - 1)
+                {
+                    Console.Write(Environment.NewLine); // para que no muestre el '%' en sistemas UNIX
+                }
             }
         }
     }
