@@ -15,6 +15,6 @@ What I'm learning right now:
 - Math
   - Python math scripts/utils and a little data analysis using Jupyter notebooks
 - Microsoft SQL Server
-  - I will also use MySQL and / or PostgreSQL at some point because I think MS SQL setup complexity is annoying. (Unless I get a Windows PC)
+  - I will also use MySQL and / or PostgreSQL at some point.
 
 **_Beware_**: Some stuff will be written in spanish because I live in Argentina and I take lessons in spanish, so watch out for Spanglish!
