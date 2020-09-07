@@ -1,5 +1,4 @@
-﻿using System;
-namespace FunctionsDemo.Lib
+﻿namespace FunctionsDemo.Lib
 {
     public class Numbers
     {
