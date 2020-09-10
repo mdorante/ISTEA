@@ -11,8 +11,6 @@ namespace Exercise_6
             Console.WriteLine("\\_|_/ Dungeons and Dragons \\_|_/" + '\n');
             Console.WriteLine("Te has conseguido a un enemigo!" + '\n');
 
-
-
             // Atributos del personaje
             float fuerza = 87f;
             float agilidad = 62f;
