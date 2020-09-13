@@ -7,6 +7,4 @@ SELECT
 FROM
     Production.Product
 WHERE
-    ProductID = 776
-    OR ProductID = 777
-    OR ProductID = 778;
+    ProductID IN (776, 777, 778);
