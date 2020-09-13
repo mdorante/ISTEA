@@ -31,6 +31,7 @@ namespace Exercise_5
             }
 
             // Mostramos los numeros ingresados en el orden ingresada
+            Console.WriteLine($"Orden original:");
             for (int i = 0; i < numeros.Length; i++)
             {
                 Console.Write($"[{numeros[i]}] ");
@@ -41,11 +42,16 @@ namespace Exercise_5
                 }
             }
 
-            buffer = numeros[0];
-            numeros[0] = numeros[cantNumeros - 1];
-            numeros[cantNumeros - 1] = buffer;
+            // Movemos el numero de la primera posicion hasta la ultima
+            for (int i = 0; i < numeros.Length - 1; i++)
+            {
+                buffer = numeros[i];
+                numeros[i] = numeros[i + 1];
+                numeros[i + 1] = buffer;
+            }
 
             // Mostramos los numeros ingresados intercambiando el primero por el ultimo
+            Console.WriteLine($"Despues del movimiento:");
             for (int i = 0; i < numeros.Length; i++)
             {
                 Console.Write($"[{numeros[i]}] ");
