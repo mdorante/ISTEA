@@ -1,0 +1,3 @@
+-- Mostrar las personas que la segunda letra de su apellido es una s
+-- Tablas: Person.Person
+-- Campos: LastName
