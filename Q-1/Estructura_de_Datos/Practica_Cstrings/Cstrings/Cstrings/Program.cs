@@ -138,9 +138,40 @@ namespace ConsoleApp3
         }
 
 
+        // Funcion para generar CStrings para los tests
+        static char[][] GenerateTestCStrings()
+        {
+            string str1 = "Hola amigo";
+            string str2 = " como estas?  mas chars \0 AHSDJAKN";
 
+            char[] cStr1 = new char[25];
+            char[] cStr2 = new char[40];
 
+            StringToCString(str1, cStr1);
+            MostrarCStrEnConsola(cStr1);
 
+            StringToCString(str2, cStr2);
+            MostrarCStrEnConsola(cStr2);
+
+            char[][] cStrings = { cStr1, cStr2 };
+            return cStrings;
+        }
+
+        // Overload que permite pasar las strings que quieres usar
+        static char[][] GenerateTestCStrings(string string1, string string2)
+        {
+            char[] cStr1 = new char[25];
+            char[] cStr2 = new char[40];
+
+            StringToCString(string1, cStr1);
+            MostrarCStrEnConsola(cStr1);
+
+            StringToCString(string2, cStr2);
+            MostrarCStrEnConsola(cStr2);
+
+            char[][] cStrings = { cStr1, cStr2 };
+            return cStrings;
+        }
 
         /* funcion CStringConcat(destino, origen)
             Anexa una copia de la CString "origen" al final de la CString "destino". 
@@ -181,17 +212,12 @@ namespace ConsoleApp3
 
         static void Test_CStringConCat()
         {
-            string str1 = "Hola amigo";
-            string str2 = " como estas?";
+            string str1 = "Lorem ipsum";
+            string str2 = " dolor sit amet";
 
-            char[] cStr1 = new char[25];
-            char[] cStr2 = new char[15];
-
-            StringToCString(str1, cStr1);
-            MostrarCStrEnConsola(cStr1);
-
-            StringToCString(str2, cStr2);
-            MostrarCStrEnConsola(cStr2);
+            char[][] exampleStrings = GenerateTestCStrings(str1, str2);
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
 
             CStringConcat(cStr1, cStr2);
 
@@ -230,6 +256,49 @@ namespace ConsoleApp3
            
                 
          */
+        static char[] CStringNCopy(char[] destino, char[] origen, int inicio, int cant)
+        {
+            bool validNums = inicio >= 0 && cant >= 0;
+
+            if (validNums)
+            {
+                int indx = 0;
+                char posActual;
+                while (indx < cant)
+                {
+                    posActual = origen[inicio + indx];
+
+                    if (posActual != EOS)
+                    {
+                        destino[indx] = posActual;
+                    }
+                    else
+                    {
+                        // Si el loop se consigue un EOS antes de llegar a cant, completa a partir de ese index, todos con EOS y sale del loop 
+                        for (int i = indx; i < cant; i++)
+                        {
+                            destino[i] = EOS;
+                        }
+                        break;
+                    }
+
+                    indx++;
+                }
+            }
+            return destino;
+        }
+
+
+        static void Test_CStringNCopy()
+        {
+            char[][] exampleStrings = GenerateTestCStrings();
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
+
+            CStringNCopy(cStr1, cStr2, 19, 10);
+
+            MostrarCStrEnConsola(cStr1);
+        }
 
 
 
@@ -258,10 +327,11 @@ namespace ConsoleApp3
             Retorno:
             * retorna destino.
 
-            
-
         */
+        //static char[] CStringCopy(char[] destino, char[] origen, int inicio)
+        //{
 
+        //}
 
 
         /* funcion CStringCompare(arg1, arg2)
@@ -468,7 +538,8 @@ namespace ConsoleApp3
         {
 
             //Test_StringToCString();
-            Test_CStringConCat();
+            //Test_CStringConCat();
+            //Test_CStringNCopy();
             Console.ReadLine();
 
         }
