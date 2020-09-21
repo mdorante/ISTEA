@@ -328,11 +328,38 @@ namespace ConsoleApp3
             * retorna destino.
 
         */
-        //static char[] CStringCopy(char[] destino, char[] origen, int inicio)
-        //{
+        static char[] CStringCopy(char[] destino, char[] origen, int inicio)
+        {
+            bool validNum = inicio >= 0;
 
-        //}
+            if (validNum)
+            {
+                int indx = 0;
+                int contador = inicio;
+                char posActual;
+                while (contador <= CStringLength(origen))
+                {
+                    posActual = origen[contador];
 
+                    destino[indx] = posActual;
+
+                    indx++;
+                    contador++;
+                }
+            }
+            return destino;
+        }
+
+        static void Test_CStringCopy()
+        {
+            char[][] exampleStrings = GenerateTestCStrings();
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
+
+            CStringCopy(cStr1, cStr2, 20);
+
+            MostrarCStrEnConsola(cStr1);
+        }
 
         /* funcion CStringCompare(arg1, arg2)
             Compara los caracteres de la CString "arg1" con los de la CString "arg2".
@@ -527,19 +554,14 @@ namespace ConsoleApp3
         */
 
 
-
-
-
-
-
-
-
         public static void Main(string[] args)
         {
 
             //Test_StringToCString();
             //Test_CStringConCat();
             //Test_CStringNCopy();
+            Test_CStringCopy();
+
             Console.ReadLine();
 
         }
