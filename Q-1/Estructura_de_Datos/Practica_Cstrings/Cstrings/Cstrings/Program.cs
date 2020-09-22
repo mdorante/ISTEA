@@ -846,6 +846,64 @@ namespace ConsoleApp3
 
         */
 
+        static int CStringToInt(char[] str)
+        {
+            int num = '\0';
+            int cantDigitos = 0;
+            int cantSignos = 0;
+            bool isNegative = false;
+
+            for (int i = 0; i < CStringLength(str); i++)
+            {
+                if (EsDigito(str[i]))
+                {
+                    cantDigitos++;
+                }
+            }
+
+            for (int i = 0; i < CStringLength(str); i++)
+            {
+                if (!EsEspacio(str[i]))
+                {
+                    if (str[i] == '+')
+                    {
+                        cantSignos++;
+                    }
+                    else if (str[i] == '-')
+                    {
+                        isNegative = true;
+                        cantSignos++;
+                    }
+
+                    if (cantSignos > 1)
+                    {
+                        break;
+                    }
+
+                    if (EsDigito(str[i]) && cantDigitos > 0)
+                    {
+                        num += (str[i] - '0') * (int)Math.Pow(10, --cantDigitos);
+                    }
+                }
+            }
+
+            if (isNegative)
+            {
+                num *= -1;
+            }
+            return num;
+        }
+
+        static void Test_CStringToInt()
+        {
+            string str = " \t\n\r  -6345";
+            char[] cStr = new char[25];
+            StringToCString(str, cStr);
+            MostrarCStrEnConsola(cStr);
+
+            Console.Write(CStringToInt(cStr));
+        }
+
 
         public static void Main(string[] args)
         {
@@ -861,7 +919,8 @@ namespace ConsoleApp3
             //Test_CStringReverseFindChar();
             //Test_CStringFindCString();
             //Test_EsEspacio();
-            Test_EsDigito();
+            //Test_EsDigito();
+            Test_CStringToInt();
 
             Console.ReadLine();
 
