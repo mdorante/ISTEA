@@ -722,9 +722,45 @@ namespace ConsoleApp3
 
 
        */
+        static bool EsEspacio(char unChar)
+        {
+            bool isBlank = false;
 
+            switch (unChar)
+            {
+                case ' ':
+                    isBlank = true;
+                    break;
+                case '\t':
+                    isBlank = true;
+                    break;
+                case '\n':
+                    isBlank = true;
+                    break;
+                case '\v':
+                    isBlank = true;
+                    break;
+                case '\f':
+                    isBlank = true;
+                    break;
+                case '\r':
+                    isBlank = true;
+                    break;
+            }
 
+            return isBlank;
+        }
 
+        static void Test_EsEspacio()
+        {
+            char char1 = 'a';
+            char char3 = '\t';
+            char char2 = '\v';
+
+            Console.WriteLine(EsEspacio(char1));
+            Console.WriteLine(EsEspacio(char2));
+            Console.WriteLine(EsEspacio(char3));
+        }
         /* funcion EsDigito(unChar)
             Valida si "unChar" es un digito decimal: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9'
             
@@ -773,7 +809,8 @@ namespace ConsoleApp3
             //Test_CStringFindAnyChar();
             //Test_CStringFindChar();
             //Test_CStringReverseFindChar();
-            Test_CStringFindCString();
+            //Test_CStringFindCString();
+            Test_EsEspacio();
 
             Console.ReadLine();
 
