@@ -761,6 +761,7 @@ namespace ConsoleApp3
             Console.WriteLine(EsEspacio(char2));
             Console.WriteLine(EsEspacio(char3));
         }
+
         /* funcion EsDigito(unChar)
             Valida si "unChar" es un digito decimal: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9'
             
@@ -770,10 +771,59 @@ namespace ConsoleApp3
              Retorno:
              *true si es alguno de los valores listados, de lo contrario falso.
 
-
-
           */
+        static bool EsDigito(char unChar)
+        {
+            bool isNum = false;
 
+            switch (unChar)
+            {
+                case '0':
+                    isNum = true;
+                    break;
+                case '1':
+                    isNum = true;
+                    break;
+                case '2':
+                    isNum = true;
+                    break;
+                case '3':
+                    isNum = true;
+                    break;
+                case '4':
+                    isNum = true;
+                    break;
+                case '5':
+                    isNum = true;
+                    break;
+                case '6':
+                    isNum = true;
+                    break;
+                case '7':
+                    isNum = true;
+                    break;
+                case '8':
+                    isNum = true;
+                    break;
+                case '9':
+                    isNum = true;
+                    break;
+
+            }
+
+            return isNum;
+        }
+
+        static void Test_EsDigito()
+        {
+            char char1 = 'a';
+            char char3 = '8';
+            char char2 = '0';
+
+            Console.WriteLine(EsDigito(char1));
+            Console.WriteLine(EsDigito(char2));
+            Console.WriteLine(EsDigito(char3));
+        }
 
 
         /* funcion CStringToInt(str)
@@ -810,7 +860,8 @@ namespace ConsoleApp3
             //Test_CStringFindChar();
             //Test_CStringReverseFindChar();
             //Test_CStringFindCString();
-            Test_EsEspacio();
+            //Test_EsEspacio();
+            Test_EsDigito();
 
             Console.ReadLine();
 
