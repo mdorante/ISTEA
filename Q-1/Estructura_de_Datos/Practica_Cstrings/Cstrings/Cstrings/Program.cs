@@ -532,7 +532,7 @@ namespace ConsoleApp3
                         {
                             return_value = j;
 
-                            // Ya conseguimos una diferencia, asi que damos condiciones finales a los loops para salir
+                            // Ya conseguimos una ocurrencia, asi que damos condiciones finales a los loops para salir
                             j = CStringLength(str1);
                             i = CStringLength(str2);
                         }
@@ -575,8 +575,34 @@ namespace ConsoleApp3
        
                         
                */
+        static int CStringFindChar(char[] unaStr, int bindx, char unChar)
+        {
+            int return_value = -1;
 
+            for (int i = bindx; i <= CStringLength(unaStr); i++)
+            {
+                if (unaStr[i] == unChar)
+                {
+                    return_value = i;
 
+                    // Ya conseguimos una ocurrencia, asi que damos condicion final al loop para salir
+                    i = CStringLength(unaStr) + 1;
+                }
+            }
+
+            return return_value;
+        }
+
+        static void Test_CStringFindChar()
+        {
+            string str1 = "Amaterasu";
+            char[] cStr1 = new char[20];
+            StringToCString(str1, cStr1);
+
+            int index = CStringFindChar(cStr1, 3, 'a');
+
+            Console.Write(index);
+        }
 
         /* funcion CStringReverseFindChar(unaStr, bindx, unChar)
             Retorna el indice de la ULTIMA ocurrencia de unChar en "unaStr" o -1 si no hay ocurrencias.
@@ -685,7 +711,8 @@ namespace ConsoleApp3
             //Test_CStringCopy();
             //Test_CStringCompare();
             //Test_CStringNCompare();
-            Test_CStringFindAnyChar();
+            //Test_CStringFindAnyChar();
+            Test_CStringFindChar();
 
             Console.ReadLine();
 
