@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp3
 {
@@ -584,9 +582,7 @@ namespace ConsoleApp3
                 if (unaStr[i] == unChar)
                 {
                     return_value = i;
-
-                    // Ya conseguimos una ocurrencia, asi que damos condicion final al loop para salir
-                    i = CStringLength(unaStr) + 1;
+                    break;
                 }
             }
 
@@ -632,9 +628,7 @@ namespace ConsoleApp3
                 if (unaStr[i] == unChar)
                 {
                     return_value = i;
-
-                    // Ya conseguimos una ocurrencia, asi que damos condicion final al loop para salir
-                    i = bindx - 1;
+                    break;
                 }
             }
 
