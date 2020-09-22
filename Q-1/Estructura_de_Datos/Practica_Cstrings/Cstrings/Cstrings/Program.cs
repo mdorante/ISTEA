@@ -383,8 +383,50 @@ namespace ConsoleApp3
 
        
         */
+        static int CStringCompare(char[] arg1, char[] arg2)
+        {
+            int comp = EOS;
+            for (int i = 0; i <= CStringLength(arg1); i++)
+            {
+                for (int j = 0; j <= CStringLength(arg2); j++)
+                {
+                    if (i == j)
+                    {
+                        if (arg1[i] != arg2[j])
+                        {
+                            comp = arg1[i] - arg2[j];
 
+                            // Ya conseguimos una diferencia, asi que damos condiciones finales a los loops para salir
+                            j = CStringLength(arg2) + 1;
+                            i = CStringLength(arg1) + 1;
+                        }
+                    }
+                }
+            }
 
+            int return_value = 0;
+            if (comp < 0)
+            {
+                return_value = -1;
+            }
+            else if (comp > 0)
+            {
+                return_value = 1;
+            }
+
+            return return_value;
+        }
+
+        static void Test_CStringCompare()
+        {
+            char[][] exampleStrings = GenerateTestCStrings("hola amigo ", "hola amigos ");
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
+
+            int compare = CStringCompare(cStr1, cStr2);
+
+            Console.Write(compare);
+        }
 
         /* funcion CStringNCompare(arg1, arg2, cant) //Notese la N
             Compara hasta "cant" caracteres de la CString arg1 con los de la CString arg2.
@@ -556,11 +598,10 @@ namespace ConsoleApp3
 
         public static void Main(string[] args)
         {
-
-            //Test_StringToCString();
             //Test_CStringConCat();
             //Test_CStringNCopy();
-            Test_CStringCopy();
+            //Test_CStringCopy();
+            Test_CStringCompare();
 
             Console.ReadLine();
 
