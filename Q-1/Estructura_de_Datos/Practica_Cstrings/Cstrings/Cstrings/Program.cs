@@ -518,8 +518,45 @@ namespace ConsoleApp3
 
         
         */
+        static int CStringFindAnyChar(char[] str1, char[] str2, int bindx)
+        {
+            int return_value = -1;
 
+            if (CStringLength(str2) >= 1 && str2[CStringLength(str2)] == EOS)
+            {
+                for (int i = 0; i < CStringLength(str2); i++)
+                {
+                    for (int j = bindx; j < CStringLength(str1); j++)
+                    {
+                        if (str1[j] == str2[i])
+                        {
+                            return_value = j;
 
+                            // Ya conseguimos una diferencia, asi que damos condiciones finales a los loops para salir
+                            j = CStringLength(str1);
+                            i = CStringLength(str2);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return_value = -2;
+            }
+
+            return return_value;
+        }
+
+        static void Test_CStringFindAnyChar()
+        {
+            char[][] exampleStrings = GenerateTestCStrings("hola", "a");
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
+
+            int index = CStringFindAnyChar(cStr1, cStr2, 1);
+
+            Console.Write(index);
+        }
 
         /* funcion CStringFindChar(unaStr, bindx, unChar)
                   Retorna el indice de la primer ocurrencia de "unChar" en "unaStr" o -1 si no hay ocurrencias.
@@ -647,7 +684,8 @@ namespace ConsoleApp3
             //Test_CStringNCopy();
             //Test_CStringCopy();
             //Test_CStringCompare();
-            Test_CStringNCompare();
+            //Test_CStringNCompare();
+            Test_CStringFindAnyChar();
 
             Console.ReadLine();
 
