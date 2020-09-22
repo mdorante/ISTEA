@@ -633,7 +633,7 @@ namespace ConsoleApp3
                 {
                     return_value = i;
 
-
+                    // Ya conseguimos una ocurrencia, asi que damos condicion final al loop para salir
                     i = bindx - 1;
                 }
             }
@@ -668,8 +668,40 @@ namespace ConsoleApp3
 
 
         */
+        static int CStringFindCString(char[] str1, char[] str2, int bindx)
+        {
+            int return_value = -1;
+            int cont = 0;
 
+            for (int i = bindx; i < CStringLength(str1); i++)
+            {
+                for (int j = 0; j < CStringLength(str2); j++)
+                {
+                    if (j == cont && str1[i] == str2[j])
+                    {
+                        cont++;
 
+                        if (return_value == -1 && cont == CStringLength(str2))
+                        {
+                            return_value = ++i - CStringLength(str2);
+                        }
+                    }
+                }
+            }
+
+            return return_value;
+        }
+
+        static void Test_CStringFindCString()
+        {
+            char[][] exampleStrings = GenerateTestCStrings("hola amigo amigo", "amigo");
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
+
+            int index = CStringFindCString(cStr1, cStr2, 7);
+
+            Console.Write(index);
+        }
 
         /* funcion EsEspacio(unChar)
            Valida si "unChar" es un espacio en blanco.
@@ -740,7 +772,8 @@ namespace ConsoleApp3
             //Test_CStringNCompare();
             //Test_CStringFindAnyChar();
             //Test_CStringFindChar();
-            Test_CStringReverseFindChar();
+            //Test_CStringReverseFindChar();
+            Test_CStringFindCString();
 
             Console.ReadLine();
 
