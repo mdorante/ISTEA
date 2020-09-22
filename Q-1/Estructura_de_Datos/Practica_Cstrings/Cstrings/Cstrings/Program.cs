@@ -623,7 +623,34 @@ namespace ConsoleApp3
 
 
          */
+        static int CStringReverseFindChar(char[] unaStr, int bindx, char unChar)
+        {
+            int return_value = -1;
 
+            for (int i = CStringLength(unaStr); i >= bindx; i--)
+            {
+                if (unaStr[i] == unChar)
+                {
+                    return_value = i;
+
+
+                    i = bindx - 1;
+                }
+            }
+
+            return return_value;
+        }
+
+        static void Test_CStringReverseFindChar()
+        {
+            string str1 = "Konohagakure";
+            char[] cStr1 = new char[20];
+            StringToCString(str1, cStr1);
+
+            int index = CStringReverseFindChar(cStr1, 3, 'a');
+
+            Console.Write(index);
+        }
 
 
         /* funcion CStringFindCString(str1, bindx, str2)
@@ -712,7 +739,8 @@ namespace ConsoleApp3
             //Test_CStringCompare();
             //Test_CStringNCompare();
             //Test_CStringFindAnyChar();
-            Test_CStringFindChar();
+            //Test_CStringFindChar();
+            Test_CStringReverseFindChar();
 
             Console.ReadLine();
 
