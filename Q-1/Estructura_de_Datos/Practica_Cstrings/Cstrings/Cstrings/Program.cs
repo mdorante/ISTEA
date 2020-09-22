@@ -96,7 +96,7 @@ namespace ConsoleApp3
                 cStr[i] = arg[i];
             }
 
-            cStr[arg.Length - 1] = EOS;
+            cStr[arg.Length] = EOS;
         }
 
         /*
@@ -451,7 +451,50 @@ namespace ConsoleApp3
 
            
         */
+        static int CStringNCompare(char[] arg1, char[] arg2, int cant)
+        {
+            int comp = EOS;
+            for (int i = 0; i < cant; i++)
+            {
+                for (int j = 0; j < cant; j++)
+                {
+                    if (i == j)
+                    {
+                        if (arg1[i] != arg2[j])
+                        {
+                            comp = arg1[i] - arg2[j];
 
+                            // Ya conseguimos una diferencia, asi que damos condiciones finales a los loops para salir
+                            j = cant;
+                            i = cant;
+                        }
+                    }
+                }
+            }
+
+            int return_value = 0;
+            if (comp < 0)
+            {
+                return_value = -1;
+            }
+            else if (comp > 0)
+            {
+                return_value = 1;
+            }
+
+            return return_value;
+        }
+
+        static void Test_CStringNCompare()
+        {
+            char[][] exampleStrings = GenerateTestCStrings("hola amigo como estas", "hola amigos como estan");
+            char[] cStr1 = exampleStrings[0];
+            char[] cStr2 = exampleStrings[1];
+
+            int compare = CStringNCompare(cStr1, cStr2, 12);
+
+            Console.Write(compare);
+        }
 
 
         /* funcion CStringFindAnyChar(str1, bindx, str2)
@@ -598,10 +641,13 @@ namespace ConsoleApp3
 
         public static void Main(string[] args)
         {
+            //Test_StringToCString();
+
             //Test_CStringConCat();
             //Test_CStringNCopy();
             //Test_CStringCopy();
-            Test_CStringCompare();
+            //Test_CStringCompare();
+            Test_CStringNCompare();
 
             Console.ReadLine();
 
