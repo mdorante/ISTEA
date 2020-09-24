@@ -77,10 +77,9 @@ namespace Practica_5._5
             bool iguales = false;
             int numIguales = 0;
 
-            for (int i = 0; i < arr1.Length; i++)
+            if (arr1.Length == arr2.Length)
             {
-
-                try
+                for (int i = 0; i < arr1.Length; i++)
                 {
                     if (arr1[i] == arr2[i])
                     {
@@ -91,12 +90,6 @@ namespace Practica_5._5
                         // Si se consigue un solo elemento diferente, ya no son iguales los arrays
                         break;
                     }
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    // No son del mismo tamaño los arrays, por lo tanto no son iguales
-                    Console.WriteLine("No son del mismo tamaño los arrays, por lo tanto no son iguales");
-                    break;
                 }
             }
 
