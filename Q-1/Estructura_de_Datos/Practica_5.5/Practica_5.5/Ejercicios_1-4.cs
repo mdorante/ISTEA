@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Practica_5._5
+﻿namespace Practica_5._5
 {
     public class Ejercicios_1_4
     {
