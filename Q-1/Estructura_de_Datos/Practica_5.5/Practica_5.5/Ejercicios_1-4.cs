@@ -72,5 +72,40 @@ namespace Practica_5._5
             return returnArray;
         }
 
+        public static bool ArraysIguales(int[] arr1, int[] arr2)
+        {
+            bool iguales = false;
+            int numIguales = 0;
+
+            for (int i = 0; i < arr1.Length; i++)
+            {
+
+                try
+                {
+                    if (arr1[i] == arr2[i])
+                    {
+                        numIguales++;
+                    }
+                    else
+                    {
+                        // Si se consigue un solo elemento diferente, ya no son iguales los arrays
+                        break;
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    // No son del mismo tamaño los arrays, por lo tanto no son iguales
+                    Console.WriteLine("No son del mismo tamaño los arrays, por lo tanto no son iguales");
+                    break;
+                }
+            }
+
+            if (numIguales == arr1.Length)
+            {
+                iguales = true;
+            }
+
+            return iguales;
+        }
     }
 }
