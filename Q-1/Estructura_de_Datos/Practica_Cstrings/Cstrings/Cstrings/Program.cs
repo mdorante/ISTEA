@@ -88,8 +88,9 @@ namespace ConsoleApp3
         */
         static void StringToCString(string arg, char[] cStr)
         {
+            int largo = arg.Length;
 
-            for (int i = 0; i < arg.Length; i++)
+            for (int i = 0; i < largo; i++)
             {
                 cStr[i] = arg[i];
             }
@@ -257,32 +258,27 @@ namespace ConsoleApp3
         static char[] CStringNCopy(char[] destino, char[] origen, int inicio, int cant)
         {
             bool validNums = inicio >= 0 && cant >= 0;
+            int origenLen = CStringLength(origen);
 
-            if (validNums)
+            if (!validNums || inicio >= origenLen)
             {
-                int indx = 0;
-                char posActual;
-                while (indx < cant)
-                {
-                    posActual = origen[inicio + indx];
-
-                    if (posActual != EOS)
-                    {
-                        destino[indx] = posActual;
-                    }
-                    else
-                    {
-                        // Si el loop se consigue un EOS antes de llegar a cant, completa a partir de ese index, todos con EOS y sale del loop 
-                        for (int i = indx; i < cant; i++)
-                        {
-                            destino[i] = EOS;
-                        }
-                        break;
-                    }
-
-                    indx++;
-                }
+                return destino;
             }
+
+            int i;
+            for (i = 0; i < cant && (origen[inicio + i] != EOS); i++)
+            {
+                destino[i] = origen[inicio + i];
+            }
+
+            // Ya llegamos al primer EOS, si todavia quedan posiciones por copiar, rellenamos todas con EOS 
+            int cantRestante = cant - i;
+            for (int j = 0; j < cantRestante; j++)
+            {
+                destino[i] = EOS;
+                i++;
+            }
+
             return destino;
         }
 
@@ -293,7 +289,7 @@ namespace ConsoleApp3
             char[] cStr1 = exampleStrings[0];
             char[] cStr2 = exampleStrings[1];
 
-            CStringNCopy(cStr1, cStr2, 19, 10);
+            CStringNCopy(cStr1, cStr2, 6, 5);
 
             MostrarCStrEnConsola(cStr1);
         }
@@ -904,7 +900,7 @@ namespace ConsoleApp3
             //Test_StringToCString();
 
             //Test_CStringConCat();
-            //Test_CStringNCopy();
+            Test_CStringNCopy();
             //Test_CStringCopy();
             //Test_CStringCompare();
             //Test_CStringNCompare();
@@ -914,7 +910,7 @@ namespace ConsoleApp3
             //Test_CStringFindCString();
             //Test_EsEspacio();
             //Test_EsDigito();
-            Test_CStringToInt();
+            //Test_CStringToInt();
 
             Console.ReadLine();
 
