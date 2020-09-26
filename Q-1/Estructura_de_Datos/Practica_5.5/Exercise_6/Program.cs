@@ -73,24 +73,50 @@ namespace Exercise_6
 
             static int[,] PlaceAliveCells(int[,] grid, int aliveCells)
             {
-                int row;
-                int column;
+                int gridRows = grid.GetLength(0);
+                int gridColumns = grid.GetLength(1);
+
+                int row = 0;
+                int column = 0;
 
                 for (int i = 1; i <= aliveCells; i++)
                 {
+                    bool inRangeRow = false;
+                    bool inRangeColumn = false;
+
                     Console.WriteLine($"Indique donde quiere colocar la celula viva numero {i}");
 
-                    Console.Write("Fila: ");
-                    row = int.Parse(Console.ReadLine());
-
-                    Console.Write("Columna: ");
-                    column = int.Parse(Console.ReadLine());
-
-
-                    grid[row, column] = 1;
-                    for (int j = 0; j < grid.GetLength(0); j++)
+                    while (!inRangeRow)
                     {
-                        for (int k = 0; k < grid.GetLength(1); k++)
+                        Console.Write("Fila: ");
+                        inRangeRow = int.TryParse(Console.ReadLine(), out row);
+
+                        if (row > gridRows)
+                        {
+                            Console.WriteLine($"El numero ingresado es mayor a la cantidad de filas de la grilla: {gridRows}");
+                            Console.WriteLine("Por favor ingrese otro:");
+                            inRangeRow = false;
+                        }
+                    }
+
+                    while (!inRangeColumn)
+                    {
+                        Console.Write("Columna: ");
+                        inRangeColumn = int.TryParse(Console.ReadLine(), out column);
+
+                        if (column > gridColumns)
+                        {
+                            Console.WriteLine($"El numero ingresado es mayor a la cantidad de columnas de la grilla: {gridColumns}");
+                            Console.WriteLine("Por favor ingrese otro:");
+                            inRangeColumn = false;
+                        }
+                    }
+
+                    grid[row - 1, column - 1] = 1;
+
+                    for (int j = 0; j < gridRows; j++)
+                    {
+                        for (int k = 0; k < gridColumns; k++)
                         {
                             Console.Write($"{grid[j, k]} ");
                         }
@@ -101,137 +127,125 @@ namespace Exercise_6
                 return grid;
             }
 
-            static void PlayGame(int[,] grid)
+            static void PlayGame(int[,] grid, int aliveCells)
             {
                 Console.WriteLine("Presione enter para empezar la simulación:");
                 Console.ReadLine();
 
-                int aliveCells = 0;
-                for (int i = 0; i < grid.GetLength(0); i++)
-                {
-                    for (int j = 0; j < grid.GetLength(1); j++)
-                    {
-                        if (grid[i, j] == 1)
-                        {
-                            aliveCells++;
-                        }
-                    }
-                }
+                int gridRows = grid.GetLength(0);
+                int gridColumns = grid.GetLength(1);
 
                 while (aliveCells > 0)
                 {
-                    int surroundingCells = 0;
-                    for (int i = 0; i < grid.GetLength(0); i++)
+                    for (int i = 0; i < gridRows; i++)
                     {
-                        for (int j = 0; j < grid.GetLength(1); j++)
+                        for (int j = 0; j < gridColumns; j++)
                         {
-                            if (i == 0 && j == 0)
+                            int surroundingAliveCells = 0;
+
+                            // Superior izquierda
+                            if (i > 0 && j > 0 && grid[i - 1, j - 1] == 1)
                             {
-                                if (grid[i, j + 1] == 0)
-                                {
-                                    surroundingCells++;
-                                }
-                                if (grid[i + 1, j] == 0)
-                                {
-                                    surroundingCells++;
-                                }
-                                if (grid[i + 1, j + 1] == 0)
-                                {
-                                    surroundingCells++;
-                                }
+                                surroundingAliveCells++;
                             }
 
-                            if (i == grid.GetLength(0) - 1 && j == grid.GetLength(1) - 1)
+                            // Superior
+                            if (i > 0 && grid[i - 1, j] == 1)
                             {
-                                if (grid[i, j - 1] == 0)
-                                {
-                                    surroundingCells++;
-                                }
-                                if (grid[i, j] == 0)
-                                {
-                                    surroundingCells++;
-                                }
-
-                                if (grid[i - 1, j] == 0)
-                                {
-                                    surroundingCells++;
-                                }
+                                surroundingAliveCells++;
                             }
 
-                            if (grid[i - 1, j - 1] == 0)
+                            // Superior derecha
+                            if (i > 0 && j < gridColumns - 1 && grid[i - 1, j + 1] == 1)
                             {
-                                surroundingCells++;
-                            }
-                            if (grid[i - 1, j] == 0)
-                            {
-                                surroundingCells++;
-                            }
-                            if (grid[i - 1, j + 1] == 0)
-                            {
-                                surroundingCells++;
+                                surroundingAliveCells++;
                             }
 
-                            if (grid[i, j - 1] == 0)
+
+                            // Izquierda
+                            if (j > 0 && grid[i, j - 1] == 1)
                             {
-                                surroundingCells++;
-                            }
-                            if (grid[i, j] == 0)
-                            {
-                                surroundingCells++;
-                            }
-                            if (grid[i, j + 1] == 0)
-                            {
-                                surroundingCells++;
+                                surroundingAliveCells++;
                             }
 
-                            if (grid[i + 1, j - 1] == 0)
+                            // Derecha
+                            if (j < gridColumns - 1 && grid[i, j + 1] == 1)
                             {
-                                surroundingCells++;
-                            }
-                            if (grid[i + 1, j] == 0)
-                            {
-                                surroundingCells++;
-                            }
-                            if (grid[i + 1, j + 1] == 0)
-                            {
-                                surroundingCells++;
+                                surroundingAliveCells++;
                             }
 
-                            if (grid[i, j] == 0 && surroundingCells > 3)
+                            // Inferior izquierda
+                            if (i < gridRows - 1 && j > 0 && grid[i + 1, j - 1] == 1)
+                            {
+                                surroundingAliveCells++;
+                            }
+
+                            // Inferior
+                            if (i < gridRows - 1 && grid[i + 1, j] == 1)
+                            {
+                                surroundingAliveCells++;
+                            }
+
+                            // Inferior derecha
+                            if (i < gridRows - 1 && j < gridColumns - 1 && grid[i + 1, j + 1] == 1)
+                            {
+                                surroundingAliveCells++;
+                            }
+
+                            // Si está muerta y la rodean exactamente 3 celulas vivas, "nace"
+                            if (grid[i, j] == 0 && surroundingAliveCells == 3)
                             {
                                 grid[i, j] = 1;
                             }
 
-                            if (grid[i, j] == 1 && surroundingCells < 2)
+                            // Si está viva y la rodean menos de 2 o mas de 3 celulas vivas, muere
+                            if (grid[i, j] == 1 && surroundingAliveCells < 2 || surroundingAliveCells > 3)
                             {
                                 grid[i, j] = 0;
                             }
                         }
                     }
 
-                    for (int i = 0; i < grid.GetLength(0); i++)
+                    // Actualizamos la cantidad de celulas vivas y mostramos la grilla
+                    aliveCells = 0;
+                    for (int j = 0; j < gridRows; j++)
                     {
-                        for (int j = 0; j < grid.GetLength(1); j++)
+                        for (int k = 0; k < gridColumns; k++)
                         {
-                            if (grid[i, j] == 1)
+                            Console.Write($"{grid[j, k]} ");
+
+                            if (grid[j, k] == 1)
                             {
                                 aliveCells++;
                             }
                         }
+                        Console.WriteLine();
                     }
 
-                    Console.WriteLine("Presione enter para avanzar al siguiente turno");
+                    if (aliveCells > 0)
+                    {
+                        Console.WriteLine("Presione enter para avanzar al siguiente turno");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Todas las celulas han muerto");
+                    }
+
                     Console.ReadLine();
                 }
-
             }
+
+            Console.WriteLine("===== Conway's Game of Life =====");
 
             int[,] grilla = GenerateGrid();
             int celulasVivas = GetNumAliveCells(grilla);
 
+            Console.WriteLine("Celulas vivas -> 1");
+            Console.WriteLine("Celulas muertas -> 0");
+
             grilla = PlaceAliveCells(grilla, celulasVivas);
 
-            PlayGame(grilla);
+            PlayGame(grilla, celulasVivas);
         }
     }
 }
