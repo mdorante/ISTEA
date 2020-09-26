@@ -5,8 +5,9 @@
         public static int FindNum(int[] numbers, int num)
         {
             int rv = -1;
+            int numbersLen = numbers.Length;
 
-            for (int i = 0; i < numbers.Length; i++)
+            for (int i = 0; i < numbersLen; i++)
             {
                 if (numbers[i] == num)
                 {
@@ -22,17 +23,19 @@
         {
             int rv = 0;
             int indicesIndex = 0;
+            int indicesLen = indices.Length;
+            int numbersLen = numbers.Length;
 
-            for (int i = 0; i < indices.Length; i++)
+            for (int i = 0; i < indicesLen; i++)
             {
                 indices[i] = -1;
             }
 
-            for (int i = 0; i < numbers.Length; i++)
+            for (int i = 0; i < numbersLen; i++)
             {
                 if (numbers[i] == num)
                 {
-                    if (indicesIndex < indices.Length)
+                    if (indicesIndex < indicesLen)
                     {
                         indices[indicesIndex] = i;
                         indicesIndex++;
@@ -44,7 +47,7 @@
                 }
             }
 
-            for (int i = 0; i < indices.Length; i++)
+            for (int i = 0; i < indicesLen; i++)
             {
                 if (indices[i] != -1)
                 {
@@ -57,11 +60,14 @@
 
         public static int[,] SumaBidimensional(int[,] arr1, int[,] arr2)
         {
-            int[,] returnArray = new int[arr1.GetLength(0), arr1.GetLength(1)];
+            int filas = arr1.GetLength(0);
+            int columnas = arr1.GetLength(1);
 
-            for (int i = 0; i < arr1.GetLength(0); i++)
+            int[,] returnArray = new int[filas, columnas];
+
+            for (int i = 0; i < filas; i++)
             {
-                for (int j = 0; j < arr1.GetLength(1); j++)
+                for (int j = 0; j < columnas; j++)
                 {
                     returnArray[i, j] = arr1[i, j] + arr2[i, j];
                 }
@@ -75,9 +81,12 @@
             bool iguales = false;
             int numIguales = 0;
 
-            if (arr1.Length == arr2.Length)
+            int arr1Len = arr1.Length;
+            int arr2Len = arr2.Length;
+
+            if (arr1Len == arr2Len)
             {
-                for (int i = 0; i < arr1.Length; i++)
+                for (int i = 0; i < arr1Len; i++)
                 {
                     if (arr1[i] == arr2[i])
                     {
@@ -91,7 +100,7 @@
                 }
             }
 
-            if (numIguales == arr1.Length)
+            if (numIguales == arr1Len)
             {
                 iguales = true;
             }
