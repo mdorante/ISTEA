@@ -628,26 +628,28 @@ namespace ConsoleApp3
         */
         static int CStringFindCString(char[] str1, char[] str2, int bindx)
         {
-            int return_value = -1;
             int cont = 0;
 
-            for (int i = bindx; i < CStringLength(str1); i++)
+            int str1Len = CStringLength(str1);
+            int str2Len = CStringLength(str2);
+
+            for (int i = bindx; i < str1Len; i++)
             {
-                for (int j = 0; j < CStringLength(str2); j++)
+                for (int j = 0; j < str2Len; j++)
                 {
                     if (j == cont && str1[i] == str2[j])
                     {
                         cont++;
 
-                        if (return_value == -1 && cont == CStringLength(str2))
+                        if (cont == str2Len)
                         {
-                            return_value = ++i - CStringLength(str2);
+                            return ++i - str2Len;
                         }
                     }
                 }
             }
 
-            return return_value;
+            return -1;
         }
 
         static void Test_CStringFindCString()
@@ -656,7 +658,7 @@ namespace ConsoleApp3
             char[] cStr1 = exampleStrings[0];
             char[] cStr2 = exampleStrings[1];
 
-            int index = CStringFindCString(cStr1, cStr2, 7);
+            int index = CStringFindCString(cStr1, cStr2, 1);
 
             Console.Write(index);
         }
@@ -874,8 +876,8 @@ namespace ConsoleApp3
             //Test_CStringNCompare();
             //Test_CStringFindAnyChar();
             //Test_CStringFindChar();
-            Test_CStringReverseFindChar();
-            //Test_CStringFindCString();
+            //Test_CStringReverseFindChar();
+            Test_CStringFindCString();
             //Test_EsEspacio();
             //Test_EsDigito();
             //Test_CStringToInt();
