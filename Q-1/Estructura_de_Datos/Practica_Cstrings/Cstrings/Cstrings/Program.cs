@@ -324,23 +324,20 @@ namespace ConsoleApp3
         */
         static char[] CStringCopy(char[] destino, char[] origen, int inicio)
         {
-            bool validNum = inicio >= 0;
+            int origenLen = CStringLength(origen);
 
-            if (validNum)
+            if (inicio < 0 || inicio >= origenLen)
             {
-                int indx = 0;
-                int contador = inicio;
-                char posActual;
-                while (contador <= CStringLength(origen))
-                {
-                    posActual = origen[contador];
-
-                    destino[indx] = posActual;
-
-                    indx++;
-                    contador++;
-                }
+                return destino;
             }
+
+            int indxDestino = 0;
+            for (int i = inicio; i < origenLen; i++)
+            {
+                destino[indxDestino] = origen[i];
+                indxDestino++;
+            }
+
             return destino;
         }
 
@@ -900,8 +897,8 @@ namespace ConsoleApp3
             //Test_StringToCString();
 
             //Test_CStringConCat();
-            Test_CStringNCopy();
-            //Test_CStringCopy();
+            //Test_CStringNCopy();
+            Test_CStringCopy();
             //Test_CStringCompare();
             //Test_CStringNCompare();
             //Test_CStringFindAnyChar();
