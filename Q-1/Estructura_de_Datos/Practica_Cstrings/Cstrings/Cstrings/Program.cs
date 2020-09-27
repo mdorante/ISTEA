@@ -684,31 +684,18 @@ namespace ConsoleApp3
        */
         static bool EsEspacio(char unChar)
         {
-            bool isBlank = false;
-
             switch (unChar)
             {
                 case ' ':
-                    isBlank = true;
-                    break;
                 case '\t':
-                    isBlank = true;
-                    break;
                 case '\n':
-                    isBlank = true;
-                    break;
                 case '\v':
-                    isBlank = true;
-                    break;
                 case '\f':
-                    isBlank = true;
-                    break;
                 case '\r':
-                    isBlank = true;
-                    break;
+                    return true;
             }
 
-            return isBlank;
+            return false;
         }
 
         static void Test_EsEspacio()
