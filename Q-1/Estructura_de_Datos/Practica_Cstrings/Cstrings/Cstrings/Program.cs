@@ -376,33 +376,18 @@ namespace ConsoleApp3
         */
         static int CStringCompare(char[] arg1, char[] arg2)
         {
-            int comp = EOS;
-            for (int i = 0; i <= CStringLength(arg1); i++)
-            {
-                for (int j = 0; j <= CStringLength(arg2); j++)
-                {
-                    if (i == j)
-                    {
-                        if (arg1[i] != arg2[j])
-                        {
-                            comp = arg1[i] - arg2[j];
+            int arg1Len = CStringLength(arg1);
+            int arg2Len = CStringLength(arg2);
 
-                            // Ya conseguimos una diferencia, asi que damos condiciones finales a los loops para salir
-                            j = CStringLength(arg2) + 1;
-                            i = CStringLength(arg1) + 1;
-                        }
-                    }
-                }
+            if (arg1Len != arg2Len)
+            {
+                return arg1Len - arg2Len;
             }
 
             int return_value = 0;
-            if (comp < 0)
+            for (int i = 0; i < arg1Len; i++)
             {
-                return_value = -1;
-            }
-            else if (comp > 0)
-            {
-                return_value = 1;
+                return_value = arg1[i] - arg2[i];
             }
 
             return return_value;
@@ -410,7 +395,7 @@ namespace ConsoleApp3
 
         static void Test_CStringCompare()
         {
-            char[][] exampleStrings = GenerateTestCStrings("hola amigo ", "hola amigos ");
+            char[][] exampleStrings = GenerateTestCStrings("hola amigo ", "hola amigos");
             char[] cStr1 = exampleStrings[0];
             char[] cStr2 = exampleStrings[1];
 
@@ -898,8 +883,8 @@ namespace ConsoleApp3
 
             //Test_CStringConCat();
             //Test_CStringNCopy();
-            Test_CStringCopy();
-            //Test_CStringCompare();
+            //Test_CStringCopy();
+            Test_CStringCompare();
             //Test_CStringNCompare();
             //Test_CStringFindAnyChar();
             //Test_CStringFindChar();
