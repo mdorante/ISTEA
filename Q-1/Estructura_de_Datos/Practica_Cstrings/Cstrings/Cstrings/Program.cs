@@ -763,7 +763,9 @@ namespace ConsoleApp3
             int cantSignos = 0;
             bool isNegative = false;
 
-            for (int i = 0; i < CStringLength(str); i++)
+            int strLen = CStringLength(str);
+
+            for (int i = 0; i < strLen; i++)
             {
                 if (EsDigito(str[i]))
                 {
@@ -771,7 +773,7 @@ namespace ConsoleApp3
                 }
             }
 
-            for (int i = 0; i < CStringLength(str); i++)
+            for (int i = 0; i < strLen; i++)
             {
                 if (!EsEspacio(str[i]))
                 {
@@ -827,7 +829,7 @@ namespace ConsoleApp3
             //Test_CStringFindAnyChar();
             //Test_CStringFindChar();
             //Test_CStringReverseFindChar();
-            Test_CStringFindCString();
+            //Test_CStringFindCString();
             //Test_EsEspacio();
             //Test_EsDigito();
             //Test_CStringToInt();
