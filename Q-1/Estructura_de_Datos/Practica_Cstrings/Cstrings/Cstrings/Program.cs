@@ -484,38 +484,30 @@ namespace ConsoleApp3
             Retorno:
             *El indice de str1 donde se encontro la primer ocurrencia o -1 si no se encontro ninguna.
             *-2 si no se supera alguna validacion.
-
-
-
-        
         */
         static int CStringFindAnyChar(char[] str1, char[] str2, int bindx)
         {
-            int return_value = -1;
 
-            if (CStringLength(str2) >= 1 && str2[CStringLength(str2)] == EOS)
+            int str1Len = CStringLength(str1);
+            int str2Len = CStringLength(str2);
+
+            if (str2Len < 1 || str2[str2Len] != EOS)
             {
-                for (int i = 0; i < CStringLength(str2); i++)
-                {
-                    for (int j = bindx; j < CStringLength(str1); j++)
-                    {
-                        if (str1[j] == str2[i])
-                        {
-                            return_value = j;
+                return -2;
+            }
 
-                            // Ya conseguimos una ocurrencia, asi que damos condiciones finales a los loops para salir
-                            j = CStringLength(str1);
-                            i = CStringLength(str2);
-                        }
+            for (int i = 0; i < str2Len; i++)
+            {
+                for (int j = bindx; j < str1Len; j++)
+                {
+                    if (str1[j] == str2[i])
+                    {
+                        return j;
                     }
                 }
             }
-            else
-            {
-                return_value = -2;
-            }
 
-            return return_value;
+            return -1;
         }
 
         static void Test_CStringFindAnyChar()
@@ -880,8 +872,8 @@ namespace ConsoleApp3
             //Test_CStringNCopy();
             //Test_CStringCopy();
             //Test_CStringCompare();
-            Test_CStringNCompare();
-            //Test_CStringFindAnyChar();
+            //Test_CStringNCompare();
+            Test_CStringFindAnyChar();
             //Test_CStringFindChar();
             //Test_CStringReverseFindChar();
             //Test_CStringFindCString();
