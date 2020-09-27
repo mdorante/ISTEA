@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ConsoleApp3
 {
@@ -585,18 +586,17 @@ namespace ConsoleApp3
          */
         static int CStringReverseFindChar(char[] unaStr, int bindx, char unChar)
         {
-            int return_value = -1;
+            int strLen = CStringLength(unaStr);
 
-            for (int i = CStringLength(unaStr); i >= bindx; i--)
+            for (int i = strLen; i >= bindx; i--)
             {
                 if (unaStr[i] == unChar)
                 {
-                    return_value = i;
-                    break;
+                    return i;
                 }
             }
 
-            return return_value;
+            return -1;
         }
 
         static void Test_CStringReverseFindChar()
@@ -873,8 +873,8 @@ namespace ConsoleApp3
             //Test_CStringCompare();
             //Test_CStringNCompare();
             //Test_CStringFindAnyChar();
-            Test_CStringFindChar();
-            //Test_CStringReverseFindChar();
+            //Test_CStringFindChar();
+            Test_CStringReverseFindChar();
             //Test_CStringFindCString();
             //Test_EsEspacio();
             //Test_EsDigito();
