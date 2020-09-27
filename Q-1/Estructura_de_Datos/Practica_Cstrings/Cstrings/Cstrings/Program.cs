@@ -540,18 +540,17 @@ namespace ConsoleApp3
                */
         static int CStringFindChar(char[] unaStr, int bindx, char unChar)
         {
-            int return_value = -1;
+            int strLen = CStringLength(unaStr);
 
-            for (int i = bindx; i <= CStringLength(unaStr); i++)
+            for (int i = bindx; i <= strLen; i++)
             {
                 if (unaStr[i] == unChar)
                 {
-                    return_value = i;
-                    break;
+                    return i;
                 }
             }
 
-            return return_value;
+            return -1;
         }
 
         static void Test_CStringFindChar()
@@ -873,8 +872,8 @@ namespace ConsoleApp3
             //Test_CStringCopy();
             //Test_CStringCompare();
             //Test_CStringNCompare();
-            Test_CStringFindAnyChar();
-            //Test_CStringFindChar();
+            //Test_CStringFindAnyChar();
+            Test_CStringFindChar();
             //Test_CStringReverseFindChar();
             //Test_CStringFindCString();
             //Test_EsEspacio();
