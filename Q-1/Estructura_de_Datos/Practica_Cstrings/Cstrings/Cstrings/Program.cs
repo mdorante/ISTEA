@@ -384,13 +384,18 @@ namespace ConsoleApp3
                 return arg1Len - arg2Len;
             }
 
-            int return_value = 0;
+            int return_value;
             for (int i = 0; i < arg1Len; i++)
             {
                 return_value = arg1[i] - arg2[i];
+
+                if (return_value != 0)
+                {
+                    return return_value;
+                }
             }
 
-            return return_value;
+            return 0;
         }
 
         static void Test_CStringCompare()
@@ -429,36 +434,26 @@ namespace ConsoleApp3
         */
         static int CStringNCompare(char[] arg1, char[] arg2, int cant)
         {
-            int comp = EOS;
+            int arg1Len = CStringLength(arg1);
+            int arg2Len = CStringLength(arg2);
+
+            if (cant >= arg1Len && arg1Len != arg2Len)
+            {
+                return arg1Len - arg2Len;
+            }
+
+            int return_value;
             for (int i = 0; i < cant; i++)
             {
-                for (int j = 0; j < cant; j++)
-                {
-                    if (i == j)
-                    {
-                        if (arg1[i] != arg2[j])
-                        {
-                            comp = arg1[i] - arg2[j];
+                return_value = arg1[i] - arg2[i];
 
-                            // Ya conseguimos una diferencia, asi que damos condiciones finales a los loops para salir
-                            j = cant;
-                            i = cant;
-                        }
-                    }
+                if (return_value != 0)
+                {
+                    return return_value;
                 }
             }
 
-            int return_value = 0;
-            if (comp < 0)
-            {
-                return_value = -1;
-            }
-            else if (comp > 0)
-            {
-                return_value = 1;
-            }
-
-            return return_value;
+            return 0;
         }
 
         static void Test_CStringNCompare()
@@ -884,8 +879,8 @@ namespace ConsoleApp3
             //Test_CStringConCat();
             //Test_CStringNCopy();
             //Test_CStringCopy();
-            Test_CStringCompare();
-            //Test_CStringNCompare();
+            //Test_CStringCompare();
+            Test_CStringNCompare();
             //Test_CStringFindAnyChar();
             //Test_CStringFindChar();
             //Test_CStringReverseFindChar();
