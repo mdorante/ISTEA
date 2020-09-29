@@ -9,6 +9,6 @@ FROM
 ORDER BY
     CASE WHEN SalariedFlag = 1 THEN BusinessEntityID
     END DESC,
-    CASE WHEN SalariedFlag != 1 THEN BusinessEntityID
+    CASE WHEN SalariedFlag = 0 THEN BusinessEntityID
     END ASC;
         
