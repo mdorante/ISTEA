@@ -6,7 +6,7 @@
         ProductID
     FROM
         Sales.SalesOrderDetail
-UNION
+UNION ALL
 
     SELECT
         ProductID
