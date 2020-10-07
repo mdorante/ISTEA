@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  base_secuestros:
+    container_name: "base_secuestros"
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    volumes:
+      - "data_secuestros:/var/opt/mssql"
+      - "./backup:/backup"
+    env_file:
+      - .env
+    network_mode: "bridge"
+
+volumes:
+  data_secuestros:
