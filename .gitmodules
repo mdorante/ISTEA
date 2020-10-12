@@ -4,3 +4,6 @@
 [submodule "Q-1/Programacion_Logica/Game_Project"]
 	path = Q-1/Programacion_Logica/Game_Project
 	url = git@github.com:mdorante/CSharp_CLI_Game.git
+[submodule "Q-1/Estructura_de_Datos/Sokoban"]
+	path = Q-1/Estructura_de_Datos/Sokoban
+	url = git@github.com:mdorante/CSharp_Sokoban.git
