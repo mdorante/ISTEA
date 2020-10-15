@@ -7,9 +7,9 @@ namespace Exercise_4
         public string nombre;
         public Autor autor;
         public float precio;
-        public int paginas;
+        public Pagina[] paginas;
 
-        public Libro(string nombre, Autor autor, float precio, int paginas)
+        public Libro(string nombre, Autor autor, float precio, Pagina[] paginas)
         {
             this.nombre = nombre;
             this.autor = autor;
@@ -64,6 +64,14 @@ namespace Exercise_4
                 }
                 Console.WriteLine();
             }
+        }
+
+        public void ObtenerPagina(int page)
+        {
+            if (page > this.paginas.Length || page < 0)
+                return;
+            else
+                paginas[page + 1].ImprimirPagina();
         }
     }
 
@@ -137,31 +145,17 @@ namespace Exercise_4
                     }
                     else if (hasTitle && i == 1)
                     {
-                        if (j < longestLine + 1)
+                        if (j < this.titulo.Length + 1)
                             Console.Write(this.titulo[j - 1]);
                         else
                             Console.Write(' ');
                     }
-                    else if (i == 3)
-                    {
-                        for (int k = 0; k < cuerpo.Length; k++)
-                        {
-                            for (int l = 0; l < cuerpo[k].Length; l++)
-                            {
-                                Console.Write(cuerpo[k][l]);
-                            }
-                            Console.WriteLine();
-                        }
-                    }
-                    // else if (i == numLines)
-                    // {
-                    //     Console.Write(this.numeroPagina);
-                    // }
                     else
                     {
                         Console.Write(' ');
                     }
                 }
+                Console.WriteLine();
             }
         }
     }
