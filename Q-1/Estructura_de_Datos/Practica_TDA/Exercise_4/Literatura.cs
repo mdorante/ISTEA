@@ -99,6 +99,70 @@ namespace Exercise_4
         public string[] cuerpo;
         public int numeroPagina;
 
-        
+        public Pagina(string titulo, string[] cuerpo, int numeroPagina)
+        {
+            this.titulo = titulo;
+            this.cuerpo = cuerpo;
+            this.numeroPagina = numeroPagina;
+        }
+
+        public Pagina(string[] cuerpo, int numeroPagina)
+        {
+            this.cuerpo = cuerpo;
+            this.numeroPagina = numeroPagina;
+        }
+
+        public void ImprimirPagina()
+        {
+            int numLines = this.cuerpo.Length;
+            int longestLine = 0;
+            bool hasTitle = this.titulo != null;
+
+            for (int i = 0; i < numLines; i++)
+            {
+                if (this.cuerpo[i].Length > longestLine)
+                    longestLine = this.cuerpo[i].Length;
+            }
+
+            if (hasTitle && this.titulo.Length > longestLine)
+                longestLine = this.titulo.Length;
+
+            for (int i = 0; i < numLines + 2; i++)
+            {
+                for (int j = 0; j < longestLine + 2; j++)
+                {
+                    if (i == 0 || i == numLines + 1 || j == 0 || j == longestLine + 1)
+                    {
+                        Console.Write('*');
+                    }
+                    else if (hasTitle && i == 1)
+                    {
+                        if (j < longestLine + 1)
+                            Console.Write(this.titulo[j - 1]);
+                        else
+                            Console.Write(' ');
+                    }
+                    else if (i == 3)
+                    {
+                        for (int k = 0; k < cuerpo.Length; k++)
+                        {
+                            for (int l = 0; l < cuerpo[k].Length; l++)
+                            {
+                                Console.Write(cuerpo[k][l]);
+                            }
+                            Console.WriteLine();
+                        }
+                    }
+                    // else if (i == numLines)
+                    // {
+                    //     Console.Write(this.numeroPagina);
+                    // }
+                    else
+                    {
+                        Console.Write(' ');
+                    }
+                }
+            }
+        }
     }
 }
