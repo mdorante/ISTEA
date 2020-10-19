@@ -81,12 +81,31 @@ namespace ArrayList
             aList.Count++;
         }
 
+        static void ArrayList_RemoveAt(ArrayList aList, int index)
+        {
+            if (index > aList.Count || index < 0)
+                throw new IndexOutOfRangeException();
+
+            int[] newArr = new int[aList.ArrayInterno.Length - 1];
+            int arrInternoLen = aList.ArrayInterno.Length - 1;
+
+            for (int i = 0; i < arrInternoLen; i++)
+            {
+                if (i < index)
+                    newArr[i] = aList.ArrayInterno[i];
+                else
+                    newArr[i] = aList.ArrayInterno[i + 1];
+            }
+            aList.ArrayInterno = newArr;
+            aList.Count--;
+        }
+
 
         static void Main(string[] args)
         {
             ArrayList list = new ArrayList();
 
-
+            // Fill array
             for (int i = 0; i < 10; i++)
             {
                 ArrayList_Add(list, i);
@@ -103,7 +122,7 @@ namespace ArrayList
 
             ArrayList_Insert(list, 10, 2);
 
-            Console.WriteLine("\nAfter: ");
+            Console.WriteLine("\nAfter insert: ");
             ArrayList_Enumerar(list);
 
             Console.WriteLine($"\n{list.Count} elements");
@@ -111,6 +130,13 @@ namespace ArrayList
             Console.WriteLine("\nElement at index 4:");
             Console.WriteLine(ArrayList_ElementAt(list, 4));
 
+
+            ArrayList_RemoveAt(list, 2);
+
+            Console.WriteLine("\nAfter remove:");
+            ArrayList_Enumerar(list);
+
+            Console.WriteLine($"\n{list.Count} elements");
 
             Console.ReadLine();
         }
