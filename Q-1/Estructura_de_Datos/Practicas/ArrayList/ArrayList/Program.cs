@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace ArrayList
 {
@@ -55,18 +56,61 @@ namespace ArrayList
             }
         }
 
+        static void ArrayList_Insert(ArrayList aList, int element, int index)
+        {
+            if (index > aList.Count || index < 0)
+                throw new IndexOutOfRangeException();
+
+            int[] newArr = new int[aList.Count + aList.TasaDeCrecimiento];
+            int arrInternoLen = aList.ArrayInterno.Length;
+
+            for (int i = 0; i < arrInternoLen; i++)
+            {
+                if (i < index)
+                    newArr[i] = aList.ArrayInterno[i];
+                else if (i == index)
+                {
+                    newArr[i] = element;
+                    newArr[i + 1] = aList.ArrayInterno[i];
+                }
+                else
+                    newArr[i + 1] = aList.ArrayInterno[i];
+            }
+            aList.ArrayInterno = newArr;
+
+            aList.Count++;
+        }
+
 
         static void Main(string[] args)
         {
             ArrayList list = new ArrayList();
 
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 ArrayList_Add(list, i);
             }
 
+            Console.WriteLine("Before: ");
             ArrayList_Enumerar(list);
+
+            Console.WriteLine($"\n{list.Count} elements");
+
+            Console.WriteLine("\nElement at index 4:");
+            Console.WriteLine(ArrayList_ElementAt(list, 4));
+
+
+            ArrayList_Insert(list, 10, 2);
+
+            Console.WriteLine("\nAfter: ");
+            ArrayList_Enumerar(list);
+
+            Console.WriteLine($"\n{list.Count} elements");
+
+            Console.WriteLine("\nElement at index 4:");
+            Console.WriteLine(ArrayList_ElementAt(list, 4));
+
 
             Console.ReadLine();
         }
