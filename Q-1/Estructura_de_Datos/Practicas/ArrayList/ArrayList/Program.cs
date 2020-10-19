@@ -100,12 +100,24 @@ namespace ArrayList
             aList.Count--;
         }
 
+        static int ArrayList_IndexOf(ArrayList aList, int element)
+        {
+            int arrInternoLen = aList.ArrayInterno.Length;
+            for (int i = 0; i < arrInternoLen; i++)
+            {
+                if (aList.ArrayInterno[i] == element)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
 
         static void Main(string[] args)
         {
             ArrayList list = new ArrayList();
 
-            // Fill array
             for (int i = 0; i < 10; i++)
             {
                 ArrayList_Add(list, i);
@@ -130,6 +142,8 @@ namespace ArrayList
             Console.WriteLine("\nElement at index 4:");
             Console.WriteLine(ArrayList_ElementAt(list, 4));
 
+            int number = 5;
+            Console.WriteLine($"\n{number} at index: {ArrayList_IndexOf(list, number)}");
 
             ArrayList_RemoveAt(list, 2);
 
@@ -138,7 +152,11 @@ namespace ArrayList
 
             Console.WriteLine($"\n{list.Count} elements");
 
+            Console.WriteLine($"\n{number} at index: {ArrayList_IndexOf(list, number)}");
+
             Console.ReadLine();
+
+
         }
     }
 }
