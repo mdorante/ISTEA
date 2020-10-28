@@ -6,11 +6,11 @@ namespace ATM_Machine
 {
     class Program
     {
-        static readonly string[] MENU_PRINCIPAL_OPTS = new string[] { "Retirar dinero",
-                                                                        "Transferir dinero",
-                                                                        "Ver CBU",
-                                                                        "Cambiar clave",
-                                                                        "Salir"
+        static readonly string[] MENU_PRINCIPAL_OPTS = new string[] { "0- Retirar dinero",
+                                                                        "1- Transferir dinero",
+                                                                        "2- Ver CBU",
+                                                                        "3- Cambiar clave",
+                                                                        "4- Salir"
                                                                         };
 
 
@@ -48,366 +48,140 @@ namespace ATM_Machine
         const int MENU_PRINCIPAL_OPT_CMB_CLAVE = 3;
         const int MENU_PRINCIPAL_OPT_SALIR = 4;
 
-
-        //Datos
-        static bool EsStringNumerica(string str)
+        static void ShowMessage(string message, ConsoleColor color)
         {
-            foreach (char c in str)
-            {
-                if (!char.IsDigit(c))
-                    return false;
-            }
-
-            return true;
-        }
-
-
-        //Vista
-        static int PedirValorInt(string mensaje)
-        {
-            int rv = 0;
-
-            Console.Write(mensaje);
-            while (!int.TryParse(Console.ReadLine(), out rv))
-            {
-                Console.WriteLine("Valor invalido.");
-                Console.Write(mensaje);
-            }
-            return rv;
-        }
-
-        static decimal PedirValorDecimal(string mensaje)
-        {
-            decimal rv = 0;
-
-            Console.Write(mensaje);
-            while (!decimal.TryParse(Console.ReadLine(), out rv))
-            {
-                Console.WriteLine("Valor invalido.");
-                Console.Write(mensaje);
-            }
-            return rv;
-        }
-
-
-
-
-        //Vista
-        static int PedirValorIntClampeado(string mensaje, int cotaInferior, int cotaSuperior)
-        {
-            int rv = PedirValorInt(mensaje);
-
-            while (rv < cotaInferior || rv > cotaSuperior)
-            {
-                Console.WriteLine("Valor invalido.");
-                rv = PedirValorInt(mensaje);
-            }
-
-            return rv;
-        }
-
-        static decimal PedirValorDecimalClampeado(string mensaje, decimal cotaInferior, decimal cotaSuperior)
-        {
-            decimal rv = PedirValorDecimal(mensaje);
-
-            while (rv < cotaInferior || rv > cotaSuperior)
-            {
-                Console.WriteLine("Valor invalido.");
-                rv = PedirValorInt(mensaje);
-            }
-
-            return rv;
-        }
-
-        //Vista
-        static string PedirStringDeLargo(string mensaje, int largo)
-        {
-            string rv = "";
-
-            Console.Write(mensaje);
-            while ((rv = Console.ReadLine()).Length != largo)
-            {
-                Console.WriteLine($"Valor invalido, el largo debe ser de [{largo}].");
-                Console.Write(mensaje);
-            }
-            return rv;
-        }
-
-
-
-        //Vista
-        static string PedirStringNumerica(string mensaje, int largo)
-        {
-            string rv = PedirStringDeLargo(mensaje, largo);
-
-            while (!EsStringNumerica(rv))
-            {
-                rv = PedirStringDeLargo(mensaje, largo);
-            }
-
-            return rv;
-        }
-
-        //Vista
-        static int MostrarMenu(string titulo, string[] opciones)
-        {
-            int eleccion = -1;
-
-            Console.WriteLine($"{titulo}");
-
-            for (int i = 0; i < opciones.Length; i++)
-            {
-                Console.WriteLine($"{i} - {opciones[i]}");
-            }
-
-            eleccion = PedirValorIntClampeado("Su eleccion:", 0, opciones.Length - 1);
-
-            return eleccion;
-        }
-
-        //Vista
-        static CajaDeAhorro MostrarPantallaSeleccionCaja(string titulo, List<CajaDeAhorro> cajas)
-        {
-            int eleccion = -1;
-
-            Console.WriteLine($"{titulo}");
-
-            for (int i = 0; i < cajas.Count; i++)
-            {
-                CajaDeAhorro caja = cajas[i];
-                Console.WriteLine($"{i} - {caja.Moneda.CodigoISO} - {caja.Nro} (${caja.Balance}) (${caja.Descubierto})");
-            }
-            Console.WriteLine($"{cajas.Count} - Cancelar");
-            eleccion = PedirValorIntClampeado("Su eleccion:", 0, cajas.Count);
-
-            if (eleccion == cajas.Count)
-                return null;
-
-            return cajas[eleccion];
-        }
-
-
-
-        //Vista
-        static TarjetaDebito MostrarPantallaDeBienvenida(CajeroAutomaticoDB cajero)
-        {
-            string nroTarjeta = PedirStringNumerica(MSG_INPUT_NRO_TARJETA, INPUT_NRO_TARJETA_LEN);
-            string clave = PedirStringNumerica(MSG_INPUT_CLAVE, INPUT_CLAVE_LEN);
-
-            TarjetaDebito tarjeta = CajeroAutomatico_BuscarTarjeta(cajero, nroTarjeta);
-
-            //No encontre la tarjeta
-            if (tarjeta == null)
-            {
-                Console.WriteLine(MSG_TARJETA_INVALIDA);
-                return null;
-            }
-            else
-            {
-                //La encontre, valido la clave.
-                int intentosInvalidos = 0;
-                while (tarjeta.Clave != clave && intentosInvalidos < MAX_INTENTOS_INVALIDOS)
-                {
-                    intentosInvalidos++;
-                    Console.WriteLine(MSG_TARJETA_INVALIDA);
-                    clave = PedirStringNumerica(MSG_INPUT_CLAVE, INPUT_CLAVE_LEN);
-                }
-                //Si llego al maximo de intentos, la desactivo.
-                if (intentosInvalidos == MAX_INTENTOS_INVALIDOS)
-                {
-                    TarjetaDebito_Desactivar(tarjeta);
-                    return null;
-                }
-
-                if (tarjeta.FechaVencimiento < DateTime.Now || !tarjeta.Activa)
-                {
-                    Console.WriteLine(MSG_TARJETA_INVALIDA);
-                    return null;
-                }
-            }
-
-
-            if (!tarjeta.Activa)
-            {
-                Console.WriteLine(MSG_TARJETA_INACTIVA);
-                return null;
-            }
-
-
-            return tarjeta;
-        }
-
-
-        //Vista
-        static void MostrarPantallaDeRetiro(CajeroAutomaticoDB cajero, List<CajaDeAhorro> cajasDeAhorro)
-        {
-
-            CajaDeAhorro caja = null;
-            decimal monto = 0;
-            decimal montoEnARS = 0;
-
-
-            if (cajero == null)
-                throw new ArgumentNullException("cajero");
-            if (cajasDeAhorro == null)
-                throw new ArgumentNullException("cajasDeAhorro");
-
-
-            caja = MostrarPantallaSeleccionCaja(MSG_INPUT_CAJA_RETIRO, cajasDeAhorro);
-
-            if (caja == null) //Eligio cancelar
-                return;
-
-
-            Console.WriteLine(MSG_MTO_RETIRAR_FMT_MONISO_CANRO_CABAL_CADES, caja.Moneda.CodigoISO, caja.Nro, caja.Balance, caja.Descubierto);
-
-            monto = PedirValorDecimalClampeado(MSG_INPUT_MONTO_RETIRO, 0, decimal.MaxValue);
-            montoEnARS = Moneda_ConvertirMontoAARS(caja.Moneda, monto);
-
-            //si el monto es 0, tiene que cancelar
-            if (monto == 0)
-                return;
-
-            if (!CajaDeAhorro_PuedeExtraer(caja, monto))
-            {
-                Console.WriteLine(MSG_CAJA_DE_AHORRO_SIN_FONDO);
-                return;
-            }
-
-            if (!CajeroAutomatico_PuedeRetirar(cajero, montoEnARS))
-            {
-                Console.WriteLine(MSG_CAJERO_SIN_FONDO);
-                return;
-
-            }
-
-
-            CajaDeAhorro_Extraer(caja, monto);
-            CajeroAutomatico_RealizarRetiro(cajero, montoEnARS);
-            Console.WriteLine(MSG_RETIRO_ARS_EXITOSO_FMT_M, montoEnARS);
-        }
-
-        //Vista
-        static void MostrarPantallaDeTransferencia(List<CajaDeAhorro> cajasDeAhorro)
-        {
-            CajaDeAhorro cajaOrigen = null;
-            CajaDeAhorro cajaDestino = null;
-
-
-            cajaOrigen = MostrarPantallaSeleccionCaja(MSG_INPUT_CAJA_TX_ORIGEN, cajasDeAhorro);
-
-            //Si elige cancelar, termino la funcion.
-            if (cajaOrigen == null)
-                return;
-
-            cajaDestino = MostrarPantallaSeleccionCaja(MSG_INPUT_CAJA_TX_DESTINO, cajasDeAhorro);
-            //Si elige cancelar, termino la funcion.
-            if (cajaDestino == null)
-                return;
-
-            decimal monto = PedirValorDecimalClampeado(MSG_INPUT_MONTO_TX, 0, decimal.MaxValue);
-
-            if (monto == 0)
-                return;
-
-            if (!CajaDeAhorro_PuedeExtraer(cajaOrigen, monto))
-            {
-                Console.WriteLine(MSG_CAJA_DE_AHORRO_SIN_FONDO);
-                return;
-            }
-
-            CajaDeAhorro_Transferir(cajaOrigen, cajaDestino, monto);
-
-        }
-
-        //Vista
-        static void MostrarPantallaDeVistaCBU(List<CajaDeAhorro> cajasDeAhorro)
-        {
-            CajaDeAhorro caja = null;
-
-            caja = MostrarPantallaSeleccionCaja(MSG_INPUT_CAJA_CBU, cajasDeAhorro);
-
-            if (caja == null)
-                return;
-            Console.WriteLine(MSG_INFO_CBU_FMT_MONISO_CANRO_CBU, caja.Moneda.CodigoISO, caja.Nro, caja.CBU);
-            Console.WriteLine(MSG_PRESIONE_ENTER);
+            Console.Clear();
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
+
+            Console.WriteLine("\nPress Enter to return");
             Console.ReadLine();
         }
 
-        //Vista
-        static void MostrarPantallaDeCambioDeClave(TarjetaDebito tarjeta)
+        static bool IsValidOption(int minValue, int maxValue, int option, string message)
         {
-
-            string claveActual = PedirStringNumerica(MSG_INPUT_CLAVE_ACTUAL, INPUT_CLAVE_LEN);
-            string nuevaClave = PedirStringNumerica(MSG_INPUT_CLAVE_NUEVA, INPUT_CLAVE_LEN);
-            string nuevaClaveRepetida = PedirStringNumerica(MSG_INPUT_CLAVE_NUEVA_REP, INPUT_CLAVE_LEN);
-
-            if (claveActual != tarjeta.Clave)
+            if (option < minValue || option > maxValue)
             {
-                Console.WriteLine(MSG_CLAVE_INVALIDA);
-                return;
+                ShowMessage(message, ConsoleColor.Red);
+                return false;
             }
-
-            if (nuevaClave != nuevaClaveRepetida)
+            else
             {
-                Console.WriteLine(MSG_CLAVE_NUEVA_DIFERENTE);
-                return;
+                return true;
             }
-
-            if (nuevaClave == claveActual)
-            {
-                Console.WriteLine(MSG_CLAVE_INVALIDA);
-                return;
-            }
-
-            //Hago el cambiaso.
-            tarjeta.Clave = nuevaClave;
         }
 
-        //Vista
-        static void MostrarPantallaPrincipal(CajeroAutomaticoDB cajero, TarjetaDebito td)
+        public static int ValidateOption(string[] menuOptions, int minValue, int maxValue)
         {
-            int opt = 0;
-            Cliente cliente = td.Cliente;
+            int maxAttempts = 3;
+            int failedAttempts = 0;
 
+            bool validOption = false;
+            bool isNum = false;
 
-            while ((opt = MostrarMenu($"{MSG_BIENVENIDA} {cliente.Nombre} {cliente.Apellido}", MENU_PRINCIPAL_OPTS)) != MENU_PRINCIPAL_OPT_SALIR)
+            int option = 0;
+
+            while (!validOption || !isNum)
             {
-                switch (opt)
+                if (failedAttempts == maxAttempts)
                 {
-                    case MENU_PRINCIPAL_OPT_RETIRO:
-                        MostrarPantallaDeRetiro(cajero, cliente.CajasDeAhorro);
-                        break;
-                    case MENU_PRINCIPAL_OPT_TX:
-                        MostrarPantallaDeTransferencia(cliente.CajasDeAhorro);
-                        break;
-                    case MENU_PRINCIPAL_OPT_VERCBU:
-                        MostrarPantallaDeVistaCBU(cliente.CajasDeAhorro);
-                        break;
-                    case MENU_PRINCIPAL_OPT_CMB_CLAVE:
-                        MostrarPantallaDeCambioDeClave(td);
-                        break;
+                    ShowMessage("You ran out of attempts, exiting the game.", ConsoleColor.Red);
+                    return 0;
+                }
+
+                Console.Clear();
+                for (int i = 0; i < menuOptions.Length; i++)
+                {
+                    Console.WriteLine(menuOptions[i]);
+                }
+
+                isNum = int.TryParse(Console.ReadLine(), out option);
+
+                if (isNum)
+                {
+                    validOption = IsValidOption(minValue, maxValue, option, $"Invalid option.\nYou have {maxAttempts - ++failedAttempts} attempts left.");
+                }
+                else
+                {
+                    ShowMessage($"Invalid option.\nYou have {maxAttempts - ++failedAttempts} attempts left.", ConsoleColor.Red);
                 }
             }
 
+            return option;
+        }
+
+
+        static TarjetaDebito MostrarPantallaBienvenida(CajeroAutomaticoDB cajero)
+        {
+            bool datosValidos = false;
+            int intentosFallidos = 0;
+
+            TarjetaDebito testTarjeta = new TarjetaDebito();
+
+            while (!datosValidos)
+            {
+                Console.Write("Ingrese numero de tarjeta: ");
+                string numeroTarjeta = Console.ReadLine();
+
+                Console.Write("Ingrese clave: ");
+                string clave = Console.ReadLine();
+
+                testTarjeta = cajero.BuscarTarjeta(numeroTarjeta);
+
+                if (intentosFallidos == 3 && testTarjeta != null)
+                {
+                    testTarjeta.Activa = false;
+                    Console.WriteLine("Superaste la cantidad de intentos, tarjeta inhabilitada.");
+                    intentosFallidos = 0;
+                }
+
+                if (testTarjeta == null)
+                {
+                    Console.WriteLine("Clave invalida.");
+                    intentosFallidos++;
+                }
+
+                if (clave == testTarjeta.Clave && !testTarjeta.Activa)
+                {
+                    Console.WriteLine("Tarjeta invalida.");
+                }
+
+                if (testTarjeta != null && clave == testTarjeta.Clave)
+                {
+                    datosValidos = true;
+                }
+            }
+
+            return testTarjeta;
+        }
+
+        static void MostrarPantallaPrincipal(TarjetaDebito tarjeta)
+        {
+            int option = ValidateOption(MENU_PRINCIPAL_OPTS, 1, 5);
+
+            switch (option)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+            }
         }
 
         static void Main(string[] args)
         {
+            CajeroAutomaticoDB test = new CajeroAutomaticoDB();
 
-            CajeroAutomaticoDB cajero = new CajeroAutomaticoDB();
+            TarjetaDebito tarjeta = MostrarPantallaBienvenida(test);
 
-            CajeroAutomatico_CargarDatosPrueba(cajero);
 
-            while (true)
-            {
-                TarjetaDebito td = MostrarPantallaDeBienvenida(cajero);
-
-                if (td != null)
-                {
-                    MostrarPantallaPrincipal(cajero, td);
-                }
-            }
         }
 
 
