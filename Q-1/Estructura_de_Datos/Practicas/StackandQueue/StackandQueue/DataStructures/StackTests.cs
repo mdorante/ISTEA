@@ -18,7 +18,7 @@ namespace StackandQueue.DataStructures
 
             Console.WriteLine($"Length before push: {test.Count()}");
 
-            LinkedListNode<int> pushedNode = test.Push(16);
+            LinkedListNode<string> pushedNode = test.Push("hi");
 
             Console.WriteLine($"Length after push: {test.Count()}");
 
@@ -29,16 +29,15 @@ namespace StackandQueue.DataStructures
         {
             Stack test = new Stack();
 
-            test.Push(13);
-            test.Push(23);
-            test.Push(367);
-            test.Push(48);
-            test.Push(59);
-            test.Push(854);
+            test.Push("hola");
+            test.Push("ciao");
+            test.Push("bonjour");
+            test.Push("konichiwa");
+            test.Push("namaste");
 
             Console.WriteLine($"Length: {test.Count()}");
 
-            LinkedListNode<int> poppedNode = test.Pop();
+            LinkedListNode<string> poppedNode = test.Pop();
 
             Console.WriteLine($"Popped value: {poppedNode.Value}");
 
@@ -49,14 +48,13 @@ namespace StackandQueue.DataStructures
         {
             Stack test = new Stack();
 
-            test.Push(13);
-            test.Push(23);
-            test.Push(367);
-            test.Push(48);
-            test.Push(59);
-            test.Push(854);
+            test.Push("hola");
+            test.Push("ciao");
+            test.Push("bonjour");
+            test.Push("konichiwa");
+            test.Push("namaste");
 
-            LinkedListNode<int> lastNode = test.Peek();
+            LinkedListNode<string> lastNode = test.Peek();
 
             Console.WriteLine($"Length: {test.Count()}");
 

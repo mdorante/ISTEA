@@ -4,11 +4,11 @@ namespace StackandQueue.DataStructures
 {
     public class Stack
     {
-        public LinkedList<int> list;
+        public LinkedList<string> list;
 
         public Stack()
         {
-            this.list = new LinkedList<int>();
+            this.list = new LinkedList<string>();
         }
 
         public int Count()
@@ -16,19 +16,19 @@ namespace StackandQueue.DataStructures
             return this.list.Count;
         }
 
-        public LinkedListNode<int> Push(int num)
+        public LinkedListNode<string> Push(string num)
         {
             return this.list.AddLast(num);
         }
 
-        public LinkedListNode<int> Pop()
+        public LinkedListNode<string> Pop()
         {
-            LinkedListNode<int> lastNode = this.list.Last;
+            LinkedListNode<string> lastNode = this.list.Last;
             this.list.RemoveLast();
             return lastNode;
         }
 
-        public LinkedListNode<int> Peek()
+        public LinkedListNode<string> Peek()
         {
             return this.list.Last;
         }
