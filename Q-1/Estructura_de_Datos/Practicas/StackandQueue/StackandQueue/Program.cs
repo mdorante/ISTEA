@@ -12,6 +12,10 @@ namespace StackandQueue
             //StackTests.TestPop();
             //StackTests.TestPeek();
 
+            //QueueTests.TestCount();
+            //QueueTests.TestEnqueue();
+            //QueueTests.TestDequeue();
+            //QueueTests.TestPeek();
         }
     }
 }
