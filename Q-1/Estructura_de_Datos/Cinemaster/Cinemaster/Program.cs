@@ -55,7 +55,7 @@ namespace Cinemaster
 
             if (cantCharEntrada % 2 != 0)
                 rPad += 1;
-            ;
+
             for (int i = 0; i < lPad; i++)
             {
                 Console.Write("=");
